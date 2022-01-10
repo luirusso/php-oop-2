@@ -14,34 +14,74 @@ Eseguire poi degli output istanziando oggetti delle varie classi. -->
      protected $age;
      protected $discount;
 
-     public function __construct($first_name, $last_name, $age)
+     public function __construct($first_name, $last_name, $age, $discount = 'Nessuno sconto disponibile.')
      {
          $this->first_name = $first_name;
          $this->last_name = $last_name;
          $this->age = $age;
+         $this->discount = $discount;
      }
 
      public function getUserInfo() {
          return $this->first_name . ' ' . $this->last_name;
      }
+
+     public function getDiscount() {
+
+        return $this->discount;
+    }
  }
 
  class PremiumUser extends User {
      protected $discount;
 
      public function setDiscount() {
-         return $this->discount = 15 . "{%}";
+         $this->discount = "è disponibile uno sconto del " . 15 . "%";
+     }
+
+     public function getDiscount() {
+         $this->setDiscount();
+
+         return $this->discount;
      }
  }
 
  class Merch {
+     public $name;
      public $price;
      public $availability;
+
+     public function __construct($name, $price, $availability)
+     {  
+         $this->name = $name;
+         $this->price = $price;
+         $this->availability = $availability;
+     }
+
+     public function getMerchInfo() {
+        return $this->name . ' ' . $this->price . '€,' . ' ' . $this->availability;
+    }
  }
 
  class Book extends Merch {
      public $subject;
+
+     public function __construct($name, $price, $availability, $subject)
+     {
+         parent::__construct($name, $price, $availability);
+
+         $this->subject = $subject;
+     }
+
+     public function getSubject() {
+         return $this->subject;
+     }
+
+     public function getBookInfo() {
+        return $this->name . ' ' . $this->subject . ' ' . $this->price . '€,' . ' ' . $this->availability;
+    }
  }
+
 
 ?>
 
@@ -55,7 +95,36 @@ Eseguire poi degli output istanziando oggetti delle varie classi. -->
 </head>
 <body>
     <main>
-        
+        <section>
+            <?php 
+                $user1 = new User('Luigi', 'Russo', 26);
+            ?>
+
+            <h3><?php echo 'Utente: ' . $user1->getUserInfo() . '<br>' . 'Sconto: ' . $user1->getDiscount() ?></h3>
+
+            <?php 
+                $user2 = new PremiumUser('Mario', 'Rossi', 47);
+            ?>
+
+            <h3><?php echo 'Utente: ' . $user2->getUserInfo() . '<br>' . 'Sconto: ' . $user2->getDiscount() ?></h3>
+        </section>
+        <section>
+            <?php 
+                $book1 = new Book('Cooking for Dummies,', '35', 'disponibile', 'libro di cucina,');
+
+                $book2 = new Book('Gardening for Dummies,', '56', 'non disponibile', 'libro di giardinaggio,');
+            ?>
+
+            <h2>Oggetti disponibili:</h2>
+            <ul>
+                <li>
+                    <?php echo $book1->getBookInfo() ?>
+                </li>
+                <li>
+                    <?php echo $book2->getBookInfo() ?>
+                </li>
+            </ul>
+        </section>
     </main>
 </body>
 </html>
