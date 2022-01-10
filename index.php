@@ -14,7 +14,7 @@ Eseguire poi degli output istanziando oggetti delle varie classi. -->
      protected $age;
      protected $discount;
 
-     public function __construct($first_name, $last_name, $age, $discount = 'Nessuno sconto disponibile.')
+     public function __construct($first_name, $last_name, $age, $discount = 'nessuno sconto disponibile.')
      {
          $this->first_name = $first_name;
          $this->last_name = $last_name;
@@ -36,7 +36,7 @@ Eseguire poi degli output istanziando oggetti delle varie classi. -->
      protected $discount;
 
      public function setDiscount() {
-         $this->discount = "è disponibile uno sconto del " . 15 . "%";
+         $this->discount = "è disponibile uno sconto Premium del " . 15 . "%.";
      }
 
      public function getDiscount() {
